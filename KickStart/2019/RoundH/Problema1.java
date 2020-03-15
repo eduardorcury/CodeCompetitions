@@ -1,48 +1,54 @@
+
 import java.util.*;
 
 public class Problema1 {
     public static void main (String[] args) {
+        
+        long startTime = System.nanoTime();
+        
         Scanner input = new Scanner(System.in);
 		int tests = input.nextInt();
 		
-		ArrayList <Integer> N = new ArrayList<>();
-		ArrayList <Integer> A = new ArrayList<>();
-		
-		for (int i = 0; i < tests; i++) {
-		    N.add(input.nextInt());
-		    int z = 0;
-		    while (z < N.get(i)) {
-		        A.add(input.nextInt());
-		        z++;
-		    }
-		}
+		ArrayList <Integer> index = new ArrayList<>();
+		ArrayList <Integer> citations = new ArrayList<>();
 		
 		for (int a = 0; a < tests; a++) {
+		    int papers = input.nextInt();
+		    citations.add(papers);
 		    ArrayList <Integer> numbers = new ArrayList<>();
-		    System.out.print("Case #" + (a + 1) + ":");
-		    int x = 0;
-		    
-		    for (int i = 1; i <= N.get(a); i++) {
+		    int z = 0;
+		    int h = 0;
+		    while (z < papers) {
+		        numbers.add(input.nextInt());
+		        z++;
+		    }
+		    for (int i = 1; i <= papers; i++) {
 		        for (int y = 1; y <= i; y++) {
-		            for (int z = 0; z < i; z++) {
-		                if (A.get(z) >= y) {
-		                    x++;
+		            for (int b = 0; b < i; b++) {
+		                if (numbers.get(b) >= y) {
+		                    h++;
 		                }
 		            }
-		            if (x == y) {
-		                numbers.add(x);
+		            if (h == y) {
+		                numbers.add(h);
 		            }
-		            x = 0;
+		            h = 0;
 		        }
-		        System.out.print(" " + numbers.get(numbers.size() - 1));
-		    }
-		    System.out.println();
-		    
-		    for (int w = 0; w < N.get(a); w++) {
-		        A.remove(0);
+		        index.add(numbers.get(numbers.size() - 1));
 		    }
 		}
+		
+		for (int i = 1; i <= tests; i++) {
+		    System.out.print("Case #" + i +":");
+		    for (int x = 0; x < citations.get(i - 1); x++) {
+		        System.out.print(" " + index.get(0));
+		        index.remove(0);
+		    }
+		    System.out.println();
+		}
+		long endTime = System.nanoTime();
+		
+		System.out.println("That took " + (endTime - startTime)/1000000 + " milliseconds");
     }
+    
 }
-
-
